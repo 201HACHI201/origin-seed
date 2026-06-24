@@ -178,6 +178,19 @@
 </style>
 </head>
 <body>
+  <!-- 유튜브 재생목록 배경음악 플레이어 -->
+<iframe 
+  style="position: fixed; bottom: 24px; right: 24px; z-index: 100; border-radius: 4px; border: 1px solid var(--line); background: var(--panel); opacity: 0.6; transition: opacity 0.3s ease;"
+  onmouseover="this.style.opacity=1"
+  onmouseout="this.style.opacity=0.6"
+  width="240" 
+  height="135" 
+  src="https://www.youtube.com/embed/videoseries?list=PLJ2NVGbqkwfeUC39c202HgOWxeM8aGrNr" 
+  frameborder="0" 
+  allow="autoplay; encrypted-media" 
+  allowfullscreen>
+</iframe>
+
 <div id="prog"></div>
 <canvas id="bg"></canvas>
 
