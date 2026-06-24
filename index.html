@@ -85,9 +85,10 @@
   .figure{
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
-    flex:0 0 auto;align-self:stretch;
+    flex-shrink: 0; align-self: center; /* 사파리 버그 픽스 */
   }
-  .figure canvas{display:block}
+  .figure canvas{display:block;} /* max-width:100% 제거 */
+  
   .cap{
     font-family:var(--mono);font-size:11px;color:var(--ink-dim);
     letter-spacing:.04em;padding:11px 14px;border-top:1px solid var(--line);
@@ -171,7 +172,6 @@
 
 <main>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="kick rv in">Origin SEED Project</div>
     <h1 class="rv in d1">잊힌 지구를,<br><span class="glow">통째로 다시 계산하다</span></h1>
@@ -180,7 +180,6 @@
     <div class="scrollcue rv in d3"><span class="ar">↓</span> 아래로 내려가며 본다</div>
   </section>
 
-  <!-- 01 발단 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">발단</span></div>
     <h2 class="rv d1">왜 시작됐나</h2>
@@ -191,7 +190,6 @@
     </div>
   </section>
 
-  <!-- 02 방법 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">방법</span></div>
     <h2 class="rv d1">되살리는 게 아니라,<br><span class="cy">다시 쓰는 것</span></h2>
@@ -199,7 +197,6 @@
     <p class="lead rv d2">폐허가 된 지구에서 흙, 암석, 화석, 남은 유기물을 긁어 데이터를 뽑는다. 그 위에 지구 역사 전체를 재현하는 <span class="em">초연산 시뮬레이션</span>을 건다. 실물이 아니라, 기록을 복원하는 것이다.</p>
   </section>
 
-  <!-- 03 기계수 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">장치</span></div>
     <h2 class="rv d1">기계수 <span class="cy">666그루</span>의 막</h2>
@@ -210,7 +207,6 @@
     </div>
   </section>
 
-  <!-- 04 연산 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">연산</span></div>
     <h2 class="rv d1">동시에,<br>세포 하나까지</h2>
@@ -221,7 +217,6 @@
     </div>
   </section>
 
-  <!-- 05 이전 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">이전</span></div>
     <h2 class="rv d1">금고만 챙겨,<br><span class="cy">떠나다</span></h2>
@@ -239,7 +234,6 @@
     </div>
   </section>
 
-  <!-- 06 반복 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">반복</span></div>
     <h2 class="rv d1">우주가 끝날<br>때까지</h2>
@@ -250,7 +244,6 @@
     </div>
   </section>
 
-  <!-- 07 closing -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">그리고</span></div>
     <h2 class="rv d1">그 무수한 칸<br>가운데 <span class="amber">하나</span></h2>
@@ -262,7 +255,6 @@
     <div class="end rv d3">Origin SEED — 기록은 우주의 끝까지 돈다</div>
   </section>
 
-  <!-- ════ PART II 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part II</div>
     <h2 class="part-big rv d1">오차</h2>
@@ -270,7 +262,6 @@
     <p class="part-desc rv d3">완벽하게 돌아가던 201번의 연산에, 단 한 번 — 있어서는 안 될 것이 끼어든다.</p>
   </section>
 
-  <!-- II-01 균열 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 04</span><span class="tag">균열 · anomaly</span></div>
     <h2 class="rv d1">막에 생긴 <span class="amber">구멍</span></h2>
@@ -281,7 +272,6 @@
     </div>
   </section>
 
-  <!-- II-02 관측 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 04</span><span class="tag">관측 · anomaly</span></div>
     <h2 class="rv d1">누군가,<br>있다</h2>
@@ -292,7 +282,6 @@
     </div>
   </section>
 
-  <!-- II-03 고정 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 04</span><span class="tag">고정 · anomaly</span></div>
     <h2 class="rv d1">사람으로,<br><span class="amber">굳다</span></h2>
@@ -303,7 +292,6 @@
     </div>
   </section>
 
-  <!-- II-04 예외값 -->
   <section class="closing">
     <div class="step rv"><span class="no">04</span><span class="of">/ 04</span><span class="tag">예외값 · anomaly</span></div>
     <h2 class="rv d1">우주의 <span class="amber">실수</span></h2>
@@ -315,7 +303,6 @@
     <div class="end rv d3">그리고 이 예외값이 한 사람의 곁에서 어떻게 살아가는지는 — 또, 그다음 이야기다</div>
   </section>
 
-  <!-- ════ PART III 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part III</div>
     <h2 class="part-big rv d1">삶</h2>
@@ -323,7 +310,6 @@
     <p class="part-desc rv d3">우주가 차마 지우지 못한 오차 하나가, 한 사람의 곁에서 — 사람으로 사는 법을 배운다.</p>
   </section>
 
-  <!-- III-01 산의 집 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">산 · life</span></div>
     <h2 class="rv d1">산속,<br>무너져 가는 집</h2>
@@ -334,7 +320,6 @@
     </div>
   </section>
 
-  <!-- III-02 동네의 바보 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">마을 · life</span></div>
     <h2 class="rv d1">가까이 가면<br>안 되는 여자</h2>
@@ -345,7 +330,6 @@
     </div>
   </section>
 
-  <!-- III-03 이상한 누나 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">첫 인식 · life</span></div>
     <h2 class="rv d1">가끔 보이는,<br>이상한 누나</h2>
@@ -356,7 +340,6 @@
     </div>
   </section>
 
-  <!-- III-04 곁에 두기로 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">선택 · life</span></div>
     <h2 class="rv d1">지켜야 할<br>사람</h2>
@@ -367,7 +350,6 @@
     </div>
   </section>
 
-  <!-- III-05 사는 일 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">일상 · life</span></div>
     <h2 class="rv d1">함께,<br>사는 일</h2>
@@ -378,7 +360,6 @@
     </div>
   </section>
 
-  <!-- III-06 늙지 않는 쪽 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">시간 · life</span></div>
     <h2 class="rv d1">늙는 쪽과,<br>그대로인 쪽</h2>
@@ -389,7 +370,6 @@
     </div>
   </section>
 
-  <!-- III-07 다시 보고 싶어 -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">영겁 · life</span></div>
     <h2 class="rv d1">다시,<br><span class="amber">보고 싶어</span></h2>
@@ -458,7 +438,7 @@ function sizeScene(s){
     w=Math.min(340, innerWidth-52);
   }else{
     const pad=(innerWidth<=420)?22:26;
-    w=Math.min(innerWidth, 780+pad*2)-pad*2-2;
+    w=Math.min(innerWidth, 780)-pad*2-2; /* 사파리 버그 픽스 - 패딩 합산식 제거 */
   }
   w=Math.max(120, Math.round(w));
   const h=parseInt(s.cv.getAttribute('height'));
@@ -608,7 +588,7 @@ function frame(){
   bx.clearRect(0,0,BW,BH);
   bx.globalCompositeOperation='lighter';
   for(const st of stars){
-    const tw=reduce?.6:0.5+0.5*Math.sin(t*st.sp+st.ph);
+    const tw=reduce ? 0.6 : 0.5+0.5*Math.sin(t*st.sp+st.ph);
     glow(bx,st.x,st.y,st.r,'#3ad0c8',0.10+tw*0.22);
   }
   bx.globalCompositeOperation='source-over';bx.globalAlpha=1;
@@ -622,7 +602,7 @@ function drawScene(s){
   ctx.clearRect(0,0,W,H);
 
   if(s.kind==='hero'){
-    const pulse=reduce?.5:0.5+0.5*Math.sin(t*0.03);
+    const pulse=reduce ? 0.5 : 0.5+0.5*Math.sin(t*0.03);
     const r=d.r*(1+pulse*0.03);
     ctx.globalCompositeOperation='lighter';
     const g=ctx.createRadialGradient(d.cx,d.cy,0,d.cx,d.cy,r*2.6);
@@ -641,11 +621,11 @@ function drawScene(s){
   if(s.kind==='scatter'){
     ctx.globalCompositeOperation='lighter';
     for(const p of d.pts){
-      const tw=reduce?.5:0.5+0.5*Math.sin(t*p.sp+p.ph);
+      const tw=reduce ? 0.5 : 0.5+0.5*Math.sin(t*p.sp+p.ph);
       glow(ctx,p.x,p.y,p.r,'#7e98ff',0.2+tw*0.4);
     }
     // 먼 지구
-    const ep=reduce?.5:0.5+0.5*Math.sin(t*0.04);
+    const ep=reduce ? 0.5 : 0.5+0.5*Math.sin(t*0.04);
     const g=ctx.createRadialGradient(d.earth.x,d.earth.y,0,d.earth.x,d.earth.y,26);
     g.addColorStop(0,'rgba(58,208,200,.6)');g.addColorStop(1,'rgba(58,208,200,0)');
     ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.earth.x,d.earth.y,26,0,7);ctx.fill();
@@ -655,7 +635,7 @@ function drawScene(s){
 
   if(s.kind==='hex'){
     const {R,cx,cy,cells}=d;
-    const spin=reduce?0:t*0.14;
+    const spin=reduce ? 0 : t*0.14;
     const bgg=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R*1.15);
     bgg.addColorStop(0,'rgba(20,40,46,.5)');bgg.addColorStop(1,'rgba(5,6,10,0)');
     ctx.fillStyle=bgg;ctx.beginPath();ctx.arc(cx,cy,R*1.1,0,7);ctx.fill();
@@ -688,7 +668,7 @@ function drawScene(s){
     ctx.globalAlpha=0.25;ctx.strokeStyle='#1d6e6b';
     ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();
     // 진행 호
-    const head=reduce?Math.PI:(t*0.02)%(Math.PI*2);
+    const head=reduce ? Math.PI : (t*0.02)%(Math.PI*2);
     ctx.globalAlpha=0.9;
     const grd=ctx.createLinearGradient(cx-R,cy,cx+R,cy);
     grd.addColorStop(0,'#3ad0c8');grd.addColorStop(1,'#7e98ff');
@@ -722,7 +702,7 @@ function drawScene(s){
     const m=d.amber;
     if(m){
       const burst=Math.sin(t*0.16),hot=burst>0.4;
-      const off=hot?(reduce?2:rand(2,5)):1.5;
+      const off=hot?(reduce ? 2 : rand(2,5)):1.5;
       ctx.globalCompositeOperation='lighter';
       const g=ctx.createRadialGradient(m.x,m.y,0,m.x,m.y,m.gw*2.2);
       g.addColorStop(0,hot?'rgba(255,94,122,.55)':'rgba(255,180,84,.5)');g.addColorStop(1,'rgba(255,180,84,0)');
@@ -760,7 +740,7 @@ function drawScene(s){
     g.addColorStop(0,'rgba(255,94,122,.5)');g.addColorStop(1,'rgba(255,94,122,0)');
     ctx.globalAlpha=1;ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,42,0,7);ctx.fill();
     for(const lk of d.leak){
-      lk.r+=reduce?0:lk.sp; if(lk.r>34)lk.r=0;
+      lk.r+=reduce ? 0 : lk.sp; if(lk.r>34)lk.r=0;
       const x=cx+Math.cos(lk.a)*lk.r, y=cy+Math.sin(lk.a)*lk.r;
       glow(ctx,x,y,1.2,'#cfecef',0.5*(1-lk.r/34));
     }
@@ -770,14 +750,14 @@ function drawScene(s){
   if(s.kind==='observe'){
     const {cloudC,baby}=d;
     const span=Math.hypot(cloudC.x-baby.x,cloudC.y-baby.y);
-    const wave=reduce?0.75:(t*0.012)%1;
+    const wave=reduce ? 0.75 : (t*0.012)%1;
     const wr=wave*span*1.1;
     const reached=wr>span*0.7;
     ctx.globalAlpha=0.5*(1-wave);ctx.strokeStyle='rgba(126,152,255,.7)';ctx.lineWidth=1.4;
     ctx.beginPath();ctx.arc(baby.x,baby.y,wr,0,7);ctx.stroke();
     ctx.globalCompositeOperation='lighter';
     for(const p of d.cloud){
-      const dr=reduce?0:Math.sin(t*p.sp+p.ph)*6;
+      const dr=reduce ? 0 : Math.sin(t*p.sp+p.ph)*6;
       const x=cloudC.x+Math.cos(p.a)*p.rr*cloudC.R+dr;
       const y=cloudC.y+Math.sin(p.a)*p.rr*cloudC.R*0.82+Math.cos(t*p.sp+p.ph)*6;
       const clarity=reached?0.5:0.18;
@@ -792,7 +772,7 @@ function drawScene(s){
   }
 
   if(s.kind==='form'){
-    const prog=reduce?1:(0.5-0.5*Math.cos(t*0.012));
+    const prog=reduce ? 1 : (0.5-0.5*Math.cos(t*0.012));
     ctx.globalCompositeOperation='lighter';
     for(const p of d.parts){
       const sx=d.cx+Math.cos(p.a)*p.rr*d.s*0.6;
@@ -862,7 +842,7 @@ function drawScene(s){
       glow(ctx,x,y,1.4,'#8fa0ad',0.22+0.2*Math.sin(t*0.05+v.ph));
     }
     for(const st of d.stones){
-      st.r-=reduce?0:st.sp; if(st.r<16)st.r=Math.min(W,H)*0.45;
+      st.r-=reduce ? 0 : st.sp; if(st.r<16)st.r=Math.min(W,H)*0.45;
       const x=amber.x+Math.cos(st.a)*st.r,y=amber.y+Math.sin(st.a)*st.r;
       glow(ctx,x,y,1.3,'#b9c4cc',0.45);
     }
@@ -891,7 +871,7 @@ function drawScene(s){
 
   if(s.kind==='approach'){
     const {amber}=d;
-    const prog=reduce?1:(0.5-0.5*Math.cos(t*0.014));
+    const prog=reduce ? 1 : (0.5-0.5*Math.cos(t*0.014));
     const kx=d.kidStart+(d.kidEnd-d.kidStart)*prog;
     ctx.globalCompositeOperation='lighter';
     const p=0.5+0.5*Math.sin(t*0.06);
@@ -929,10 +909,10 @@ function drawScene(s){
     const {amber,kid}=d;
     ctx.globalCompositeOperation='lighter';
     for(const sp of d.spirits){
-      sp.off+=reduce?0:sp.sp; if(sp.off>46)sp.off=0;
+      sp.off+=reduce ? 0 : sp.sp; if(sp.off>46)sp.off=0;
       glow(ctx,sp.x,kid.y-sp.off,1,'#bff5f0',0.4*(1-sp.off/46));
     }
-    const life=reduce?0.3:(0.5+0.5*Math.cos(t*0.01));
+    const life=reduce ? 0.3 : (0.5+0.5*Math.cos(t*0.01));
     glow(ctx,kid.x,kid.y,2.4*Math.max(0.3,life),'#bff5f0',0.2+life*0.6);
     const p=0.5+0.5*Math.sin(t*0.06);
     const g=ctx.createRadialGradient(amber.x,amber.y,0,amber.x,amber.y,34);
