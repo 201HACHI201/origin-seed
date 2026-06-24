@@ -86,7 +86,7 @@
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
   }
-  .figure canvas{display:block;width:100%;height:auto}
+  .figure canvas{display:block;max-width:100%}
   .cap{
     font-family:var(--mono);font-size:11px;color:var(--ink-dim);
     letter-spacing:.04em;padding:11px 14px;border-top:1px solid var(--line);
@@ -452,7 +452,14 @@ document.querySelectorAll('canvas[data-scene]').forEach(cv=>{
 });
 
 function sizeScene(s){
-  const w=s.cv.parentElement.clientWidth;
+  let w;
+  if(s.kind==='hero'){
+    w=Math.min(340, innerWidth-52);
+  }else{
+    const pad=(innerWidth<=420)?22:26;
+    w=Math.min(innerWidth, 780+pad*2)-pad*2-2;
+  }
+  w=Math.max(120, Math.round(w));
   const h=parseInt(s.cv.getAttribute('height'));
   s.W=w;s.H=h;
   s.cv.width=w*DPR;s.cv.height=h*DPR;
