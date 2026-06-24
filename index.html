@@ -44,7 +44,7 @@
 
   main{position:relative;z-index:1}
 
-  /* 💡 사파리 무한 팽창의 주범인 flex 속성 완전 박멸 */
+  /* 사파리 무한 팽창의 주범인 flex 속성 완전 박멸 */
   section{
     display: block; 
     padding:72px 26px;
@@ -84,7 +84,7 @@
   p.lead b{color:var(--ink);font-weight:600}
   p.lead .em{color:var(--cyan);font-weight:500}
 
-  /* 💡 무한 팽창을 막기 위해 높이를 내부 콘텐츠에 강제로 맞춤 */
+  /* 무한 팽창을 막기 위해 높이를 내부 콘텐츠에 강제로 맞춤 */
   .figure{
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
@@ -100,7 +100,7 @@
   .cap b{color:var(--cyan);font-weight:500}
 
   /* ── HERO ── */
-  /* 💡 svh 단위와 flex가 만나면 iOS에서 뻗으므로 일반 패딩으로 위치 조정 */
+  /* svh 단위와 flex가 만나면 iOS에서 뻗으므로 일반 패딩으로 위치 조정 */
   .hero{
     display: block; padding-top: 25vh;
     min-height: 100vh; text-align: left; max-width: 820px;
@@ -157,7 +157,7 @@
   }
 
   /* PART 표지 */
-  /* 💡 여기도 flex 대신 패딩을 써서 안전하게 가운데 정렬 유지 */
+  /* 여기도 flex 대신 패딩을 써서 안전하게 가운데 정렬 유지 */
   .interstitial{
     display: block; padding-top: 35vh;
     min-height: 100vh; text-align: center;
@@ -183,7 +183,6 @@
 
 <main>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="kick rv in">Origin SEED Project</div>
     <h1 class="rv in d1">잊힌 지구를,<br><span class="glow">통째로 다시 계산하다</span></h1>
@@ -192,7 +191,6 @@
     <div class="scrollcue rv in d3"><span class="ar">↓</span> 아래로 내려가며 본다</div>
   </section>
 
-  <!-- 01 발단 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">발단</span></div>
     <h2 class="rv d1">왜 시작됐나</h2>
@@ -203,7 +201,6 @@
     </div>
   </section>
 
-  <!-- 02 방법 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">방법</span></div>
     <h2 class="rv d1">되살리는 게 아니라,<br><span class="cy">다시 쓰는 것</span></h2>
@@ -211,7 +208,6 @@
     <p class="lead rv d2">폐허가 된 지구에서 흙, 암석, 화석, 남은 유기물을 긁어 데이터를 뽑는다. 그 위에 지구 역사 전체를 재현하는 <span class="em">초연산 시뮬레이션</span>을 건다. 실물이 아니라, 기록을 복원하는 것이다.</p>
   </section>
 
-  <!-- 03 기계수 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">장치</span></div>
     <h2 class="rv d1">기계수 <span class="cy">666그루</span>의 막</h2>
@@ -222,7 +218,6 @@
     </div>
   </section>
 
-  <!-- 04 연산 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">연산</span></div>
     <h2 class="rv d1">동시에,<br>세포 하나까지</h2>
@@ -233,7 +228,6 @@
     </div>
   </section>
 
-  <!-- 05 이전 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">이전</span></div>
     <h2 class="rv d1">금고만 챙겨,<br><span class="cy">떠나다</span></h2>
@@ -251,7 +245,6 @@
     </div>
   </section>
 
-  <!-- 06 반복 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">반복</span></div>
     <h2 class="rv d1">우주가 끝날<br>때까지</h2>
@@ -262,7 +255,6 @@
     </div>
   </section>
 
-  <!-- 07 closing -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">그리고</span></div>
     <h2 class="rv d1">그 무수한 칸<br>가운데 <span class="amber">하나</span></h2>
@@ -274,7 +266,6 @@
     <div class="end rv d3">Origin SEED — 기록은 우주의 끝까지 돈다</div>
   </section>
 
-  <!-- ════ PART II 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part II</div>
     <h2 class="part-big rv d1">오차</h2>
@@ -282,7 +273,6 @@
     <p class="part-desc rv d3">완벽하게 돌아가던 201번의 연산에, 단 한 번 — 있어서는 안 될 것이 끼어든다.</p>
   </section>
 
-  <!-- II-01 균열 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 04</span><span class="tag">균열 · anomaly</span></div>
     <h2 class="rv d1">막에 생긴 <span class="amber">구멍</span></h2>
@@ -293,7 +283,6 @@
     </div>
   </section>
 
-  <!-- II-02 관측 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 04</span><span class="tag">관측 · anomaly</span></div>
     <h2 class="rv d1">누군가,<br>있다</h2>
@@ -304,7 +293,6 @@
     </div>
   </section>
 
-  <!-- II-03 고정 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 04</span><span class="tag">고정 · anomaly</span></div>
     <h2 class="rv d1">사람으로,<br><span class="amber">굳다</span></h2>
@@ -315,7 +303,6 @@
     </div>
   </section>
 
-  <!-- II-04 예외값 -->
   <section class="closing">
     <div class="step rv"><span class="no">04</span><span class="of">/ 04</span><span class="tag">예외값 · anomaly</span></div>
     <h2 class="rv d1">우주의 <span class="amber">실수</span></h2>
@@ -327,7 +314,6 @@
     <div class="end rv d3">그리고 이 예외값이 한 사람의 곁에서 어떻게 살아가는지는 — 또, 그다음 이야기다</div>
   </section>
 
-  <!-- ════ PART III 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part III</div>
     <h2 class="part-big rv d1">삶</h2>
@@ -335,7 +321,6 @@
     <p class="part-desc rv d3">우주가 차마 지우지 못한 오차 하나가, 한 사람의 곁에서 — 사람으로 사는 법을 배운다.</p>
   </section>
 
-  <!-- III-01 산의 집 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">산 · life</span></div>
     <h2 class="rv d1">산속,<br>무너져 가는 집</h2>
@@ -346,7 +331,6 @@
     </div>
   </section>
 
-  <!-- III-02 동네의 바보 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">마을 · life</span></div>
     <h2 class="rv d1">가까이 가면<br>안 되는 여자</h2>
@@ -357,7 +341,6 @@
     </div>
   </section>
 
-  <!-- III-03 이상한 누나 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">첫 인식 · life</span></div>
     <h2 class="rv d1">가끔 보이는,<br>이상한 누나</h2>
@@ -368,7 +351,6 @@
     </div>
   </section>
 
-  <!-- III-04 곁에 두기로 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">선택 · life</span></div>
     <h2 class="rv d1">지켜야 할<br>사람</h2>
@@ -379,7 +361,6 @@
     </div>
   </section>
 
-  <!-- III-05 사는 일 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">일상 · life</span></div>
     <h2 class="rv d1">함께,<br>사는 일</h2>
@@ -390,7 +371,6 @@
     </div>
   </section>
 
-  <!-- III-06 늙지 않는 쪽 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">시간 · life</span></div>
     <h2 class="rv d1">늙는 쪽과,<br>그대로인 쪽</h2>
@@ -401,7 +381,6 @@
     </div>
   </section>
 
-  <!-- III-07 다시 보고 싶어 -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">영겁 · life</span></div>
     <h2 class="rv d1">다시,<br><span class="amber">보고 싶어</span></h2>
@@ -420,7 +399,7 @@
 <script>
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* 💡 DOM 크기를 직접 건드리지 않고 스케일(Scale)만 조절하여 안전하게 동작 */
+/* DOM 크기를 직접 건드리지 않고 스케일(Scale)만 조절하여 안전하게 동작 */
 const prog = document.getElementById('prog');
 addEventListener('scroll', ()=>{
   const h = document.documentElement;
@@ -482,7 +461,7 @@ function sizeScene(s){
   setupScene(s);
 }
 
-/* 💡 화면 '너비'가 진짜 변했을 때만 크기 조정을 허락한다 */
+/* 화면 '너비'가 진짜 변했을 때만 크기 조정을 허락한다 */
 let lastWinW = innerWidth;
 addEventListener('resize', () => {
   if(innerWidth === lastWinW) return;
@@ -835,7 +814,7 @@ function drawScene(s){
     ctx.globalCompositeOperation='lighter';
     const gg=ctx.createRadialGradient(cx,cy,0,cx,cy,r*2.3);
     gg.addColorStop(0,'rgba(255,180,84,.5)');gg.addColorStop(.5,'rgba(255,180,84,.12)');gg.addColorStop(1,'rgba(255,180,84,0)');
-    ctx.globalAlpha=1;ctx.fillStyle=gg;ctx.beginPath();ctx.arc(cx,cy,r*2.3,0,7);ctx.fill();
+    ctx.globalAlpha=1;ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r*2.3,0,7);ctx.fill();
     glow(ctx,cx,cy,r*(0.5+pulse*0.06),'#ffd9a0',0.85);
     glow(ctx,cx,cy,r*0.3,'#fff3e0',0.7);
     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
