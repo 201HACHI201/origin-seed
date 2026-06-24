@@ -177,15 +177,7 @@
   }
 </style>
 </head>
-<body><a href="https://www.youtube.com/playlist?list=PLJ2NVGbqkwfeUC39c202HgOWxeM8aGrNr" target="_blank" 
-   style="position: absolute; top: 20px; right: 20px; z-index: 9999; 
-   width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--cyan); 
-   background: rgba(10, 14, 24, 0.9); color: var(--cyan); 
-   display: flex; align-items: center; justify-content: center; 
-   font-family: var(--mono); font-size: 8px; text-decoration: none; 
-   box-shadow: 0 0 8px rgba(58, 208, 200, 0.3);">
-   ♪
-</a>
+<body>
 
 
 
@@ -967,5 +959,29 @@ function drawScene(s){
 
 frame();
 </script>
+  <audio id="myAudio"></audio>
+
+<script>
+  // 1. 깃허브에 올린 파일명과 일치해야 함
+  const playlist = ["music1.mp3", "music2.mp3"]; 
+  let currentTrack = 0;
+  const audio = document.getElementById("myAudio");
+
+  // 2. 방문자가 화면 아무 데나 클릭하면 시작
+  document.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.src = playlist[currentTrack];
+      audio.play();
+    }
+  }, { once: true }); 
+
+  // 3. 한 곡 끝나면 자동으로 다음 곡 재생
+  audio.addEventListener("ended", () => {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    audio.src = playlist[currentTrack];
+    audio.play();
+  });
+</script>
+
 </body>
 </html>
