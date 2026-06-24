@@ -178,18 +178,16 @@
 </style>
 </head>
 <body>
-  <!-- 유튜브 재생목록 배경음악 플레이어 -->
-<iframe 
-  style="position: fixed; bottom: 24px; right: 24px; z-index: 100; border-radius: 4px; border: 1px solid var(--line); background: var(--panel); opacity: 0.6; transition: opacity 0.3s ease;"
-  onmouseover="this.style.opacity=1"
-  onmouseout="this.style.opacity=0.6"
-  width="240" 
-  height="135" 
-  src="https://www.youtube.com/embed/videoseries?list=PLJ2NVGbqkwfeUC39c202HgOWxeM8aGrNr" 
-  frameborder="0" 
-  allow="autoplay; encrypted-media" 
-  allowfullscreen>
-</iframe>
+<div style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; align-items: center; gap: 8px; background: rgba(10, 14, 24, 0.8); padding: 8px 12px; border-radius: 20px; border: 1px solid var(--cyan);">
+  <span style="color: var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;">BGM</span>
+  <iframe 
+    style="border-radius: 50%; width: 32px; height: 32px; border: none; vertical-align: middle;"
+    src="https://www.youtube.com/embed/videoseries?list=PLJ2NVGbqkwfeUC39c202HgOWxeM8aGrNr" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media">
+  </iframe>
+</div>
+
 
 <div id="prog"></div>
 <canvas id="bg"></canvas>
