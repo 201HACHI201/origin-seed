@@ -89,6 +89,8 @@
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
     display: block; height: max-content;
+    min-height: 150px;
+    
   }
   .figure canvas{display:block;} 
   
@@ -957,8 +959,11 @@ function drawScene(s){
   }
 }
 
-frame();
+window.onload = () => {
+  frame();
+};
 </script>
+
   <audio id="myAudio"></audio>
 
 <script>
