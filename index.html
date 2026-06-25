@@ -34,19 +34,17 @@
   /* 배경 입자 캔버스 (전 구간 고정) */
   #bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
 
-  /* 상단 진행 바 - width 대신 transform으로 변경하여 무한 리사이즈 버그 완전 차단 */
+  /* 상단 진행 바 */
   #prog{
-    position:fixed;top:0;left:0;height:2px;width:100%;
+    position:fixed;top:0;left:0;height:2px;width:0%;
     background:linear-gradient(90deg,var(--cyan),var(--violet));
-    z-index:50;box-shadow:0 0 8px var(--cyan);
-    transform-origin: 0% 50%; transform: scaleX(0);
+    z-index:50;transition:width .15s linear;box-shadow:0 0 8px var(--cyan);
   }
 
   main{position:relative;z-index:1}
 
-  /* 사파리 무한 팽창의 주범인 flex 속성 완전 박멸 */
   section{
-    display: block; 
+    display:flex;flex-direction:column;justify-content:center;
     padding:72px 26px;
     max-width:780px;margin:0 auto;
   }
@@ -84,14 +82,11 @@
   p.lead b{color:var(--ink);font-weight:600}
   p.lead .em{color:var(--cyan);font-weight:500}
 
-  /* 무한 팽창을 막기 위해 높이를 300px로 강제 고정 */
   .figure{
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
-    display: block; height: 300px;
   }
-  .figure canvas{display:block;} 
-  
+  .figure canvas{display:block;max-width:100%}
   .cap{
     font-family:var(--mono);font-size:11px;color:var(--ink-dim);
     letter-spacing:.04em;padding:11px 14px;border-top:1px solid var(--line);
@@ -100,11 +95,7 @@
   .cap b{color:var(--cyan);font-weight:500}
 
   /* ── HERO ── */
-  /* svh 단위와 flex가 만나면 iOS에서 뻗으므로 일반 패딩으로 위치 조정 */
-  .hero{
-    display: block; padding-top: 25vh;
-    min-height: 100vh; text-align: left; max-width: 820px;
-  }
+  .hero{min-height:100svh;justify-content:center;text-align:left;max-width:820px}
   .hero .kick{
     font-family:var(--mono);font-size:12px;letter-spacing:.4em;
     text-transform:uppercase;color:var(--cyan);margin-bottom:26px;
@@ -157,15 +148,11 @@
   }
 
   /* PART 표지 */
-  /* 여기도 flex 대신 패딩을 써서 안전하게 가운데 정렬 유지 */
-  .interstitial{
-    display: block; padding-top: 35vh;
-    min-height: 100vh; text-align: center;
-  }
+  .interstitial{align-items:center;text-align:center;min-height:92svh}
   .part-label{font-family:var(--mono);font-size:13px;letter-spacing:.5em;color:var(--cyan);text-transform:uppercase}
   .part-big{font-size:clamp(58px,23vw,150px);font-weight:700;color:var(--amber);line-height:.92;margin:16px 0 8px;letter-spacing:-.03em}
   .part-sub{font-family:var(--mono);font-size:13px;letter-spacing:.42em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:32px}
-  .part-desc{font-size:clamp(15px,4.4vw,18px);line-height:1.72;color:var(--ink-soft);max-width:23em; margin:0 auto;}
+  .part-desc{font-size:clamp(15px,4.4vw,18px);line-height:1.72;color:var(--ink-soft);max-width:23em}
 
   @media (max-width:420px){
     section{padding:80px 22px}
@@ -178,12 +165,12 @@
 </style>
 </head>
 <body>
-
 <div id="prog"></div>
 <canvas id="bg"></canvas>
 
 <main>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="kick rv in">Origin SEED Project</div>
     <h1 class="rv in d1">잊힌 지구를,<br><span class="glow">통째로 다시 계산하다</span></h1>
@@ -192,6 +179,7 @@
     <div class="scrollcue rv in d3"><span class="ar">↓</span> 아래로 내려가며 본다</div>
   </section>
 
+  <!-- 01 발단 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">발단</span></div>
     <h2 class="rv d1">왜 시작됐나</h2>
@@ -202,6 +190,7 @@
     </div>
   </section>
 
+  <!-- 02 방법 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">방법</span></div>
     <h2 class="rv d1">되살리는 게 아니라,<br><span class="cy">다시 쓰는 것</span></h2>
@@ -209,6 +198,7 @@
     <p class="lead rv d2">폐허가 된 지구에서 흙, 암석, 화석, 남은 유기물을 긁어 데이터를 뽑는다. 그 위에 지구 역사 전체를 재현하는 <span class="em">초연산 시뮬레이션</span>을 건다. 실물이 아니라, 기록을 복원하는 것이다.</p>
   </section>
 
+  <!-- 03 기계수 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">장치</span></div>
     <h2 class="rv d1">기계수 <span class="cy">666그루</span>의 막</h2>
@@ -219,6 +209,7 @@
     </div>
   </section>
 
+  <!-- 04 연산 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">연산</span></div>
     <h2 class="rv d1">동시에,<br>세포 하나까지</h2>
@@ -229,6 +220,7 @@
     </div>
   </section>
 
+  <!-- 05 이전 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">이전</span></div>
     <h2 class="rv d1">금고만 챙겨,<br><span class="cy">떠나다</span></h2>
@@ -246,6 +238,7 @@
     </div>
   </section>
 
+  <!-- 06 반복 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">반복</span></div>
     <h2 class="rv d1">우주가 끝날<br>때까지</h2>
@@ -256,6 +249,7 @@
     </div>
   </section>
 
+  <!-- 07 closing -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">그리고</span></div>
     <h2 class="rv d1">그 무수한 칸<br>가운데 <span class="amber">하나</span></h2>
@@ -267,6 +261,7 @@
     <div class="end rv d3">Origin SEED — 기록은 우주의 끝까지 돈다</div>
   </section>
 
+  <!-- ════ PART II 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part II</div>
     <h2 class="part-big rv d1">오차</h2>
@@ -274,6 +269,7 @@
     <p class="part-desc rv d3">완벽하게 돌아가던 201번의 연산에, 단 한 번 — 있어서는 안 될 것이 끼어든다.</p>
   </section>
 
+  <!-- II-01 균열 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 04</span><span class="tag">균열 · anomaly</span></div>
     <h2 class="rv d1">막에 생긴 <span class="amber">구멍</span></h2>
@@ -284,6 +280,7 @@
     </div>
   </section>
 
+  <!-- II-02 관측 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 04</span><span class="tag">관측 · anomaly</span></div>
     <h2 class="rv d1">누군가,<br>있다</h2>
@@ -294,6 +291,7 @@
     </div>
   </section>
 
+  <!-- II-03 고정 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 04</span><span class="tag">고정 · anomaly</span></div>
     <h2 class="rv d1">사람으로,<br><span class="amber">굳다</span></h2>
@@ -304,6 +302,7 @@
     </div>
   </section>
 
+  <!-- II-04 예외값 -->
   <section class="closing">
     <div class="step rv"><span class="no">04</span><span class="of">/ 04</span><span class="tag">예외값 · anomaly</span></div>
     <h2 class="rv d1">우주의 <span class="amber">실수</span></h2>
@@ -315,6 +314,7 @@
     <div class="end rv d3">그리고 이 예외값이 한 사람의 곁에서 어떻게 살아가는지는 — 또, 그다음 이야기다</div>
   </section>
 
+  <!-- ════ PART III 표지 ════ -->
   <section class="interstitial">
     <div class="part-label rv">Part III</div>
     <h2 class="part-big rv d1">삶</h2>
@@ -322,6 +322,7 @@
     <p class="part-desc rv d3">우주가 차마 지우지 못한 오차 하나가, 한 사람의 곁에서 — 사람으로 사는 법을 배운다.</p>
   </section>
 
+  <!-- III-01 산의 집 -->
   <section>
     <div class="step rv"><span class="no">01</span><span class="of">/ 07</span><span class="tag">산 · life</span></div>
     <h2 class="rv d1">산속,<br>무너져 가는 집</h2>
@@ -332,6 +333,7 @@
     </div>
   </section>
 
+  <!-- III-02 동네의 바보 -->
   <section>
     <div class="step rv"><span class="no">02</span><span class="of">/ 07</span><span class="tag">마을 · life</span></div>
     <h2 class="rv d1">가까이 가면<br>안 되는 여자</h2>
@@ -342,6 +344,7 @@
     </div>
   </section>
 
+  <!-- III-03 이상한 누나 -->
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">첫 인식 · life</span></div>
     <h2 class="rv d1">가끔 보이는,<br>이상한 누나</h2>
@@ -352,6 +355,7 @@
     </div>
   </section>
 
+  <!-- III-04 곁에 두기로 -->
   <section>
     <div class="step rv"><span class="no">04</span><span class="of">/ 07</span><span class="tag">선택 · life</span></div>
     <h2 class="rv d1">지켜야 할<br>사람</h2>
@@ -362,6 +366,7 @@
     </div>
   </section>
 
+  <!-- III-05 사는 일 -->
   <section>
     <div class="step rv"><span class="no">05</span><span class="of">/ 07</span><span class="tag">일상 · life</span></div>
     <h2 class="rv d1">함께,<br>사는 일</h2>
@@ -372,6 +377,7 @@
     </div>
   </section>
 
+  <!-- III-06 늙지 않는 쪽 -->
   <section>
     <div class="step rv"><span class="no">06</span><span class="of">/ 07</span><span class="tag">시간 · life</span></div>
     <h2 class="rv d1">늙는 쪽과,<br>그대로인 쪽</h2>
@@ -382,6 +388,7 @@
     </div>
   </section>
 
+  <!-- III-07 다시 보고 싶어 -->
   <section class="closing">
     <div class="step rv"><span class="no">07</span><span class="of">/ 07</span><span class="tag">영겁 · life</span></div>
     <h2 class="rv d1">다시,<br><span class="amber">보고 싶어</span></h2>
@@ -398,15 +405,14 @@
 <footer>ORIGIN SEED PROJECT · 세계관 개요</footer>
 
 <script>
-// 무조건 절전 모드를 끄게 만들었다
-const reduce = false;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* DOM 크기를 직접 건드리지 않고 스케일(Scale)만 조절하여 안전하게 동작 */
+/* ── 진행 바 ── */
 const prog = document.getElementById('prog');
 addEventListener('scroll', ()=>{
   const h = document.documentElement;
   const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
-  prog.style.transform = 'scaleX(' + Math.max(0, Math.min(1, p)) + ')';
+  prog.style.width = (p*100).toFixed(1)+'%';
 }, {passive:true});
 
 /* ── 리빌 ── */
@@ -428,7 +434,7 @@ function bgResize(){
   for(let i=0;i<n;i++)stars.push({x:Math.random()*BW,y:Math.random()*BH,
     r:Math.random()*1.1+.2,ph:Math.random()*6.28,sp:Math.random()*.02+.004});
 }
-bgResize();
+bgResize();addEventListener('resize',bgResize);
 
 /* ── 씬 캔버스들 ── */
 const scenes=[];
@@ -436,7 +442,11 @@ function rand(a,b){return a+Math.random()*(b-a);}
 
 document.querySelectorAll('canvas[data-scene]').forEach(cv=>{
   const ctx=cv.getContext('2d');
-  const s={cv,ctx,kind:cv.dataset.scene,active:false,W:0,H:0,data:{}};
+  const s={
+    cv,ctx,kind:cv.dataset.scene,active:false,W:0,H:0,
+    baseHeight:parseInt(cv.getAttribute('height'),10),
+    data:{}
+  };
   const sObs=new IntersectionObserver((es)=>{
     es.forEach(e=>s.active=e.isIntersecting);
   },{threshold:.05});
@@ -451,10 +461,10 @@ function sizeScene(s){
     w=Math.min(340, innerWidth-52);
   }else{
     const pad=(innerWidth<=420)?22:26;
-    w=Math.min(innerWidth, 780)-pad*2-2;
+    w=Math.min(innerWidth, 780+pad*2)-pad*2-2;
   }
   w=Math.max(120, Math.round(w));
-  const h=parseInt(s.cv.getAttribute('height'));
+  const h=s.baseHeight;
   s.W=w;s.H=h;
   s.cv.width=w*DPR;s.cv.height=h*DPR;
   s.cv.style.width=w+'px';
@@ -462,19 +472,13 @@ function sizeScene(s){
   s.ctx.setTransform(DPR,0,0,DPR,0,0);
   setupScene(s);
 }
-
-/* 화면 '너비'가 진짜 변했을 때만 크기 조정을 허락하고 과부하 방지 타이머 적용 */
-let lastWinW = innerWidth;
-let resizeTimer;
-addEventListener('resize', () => {
-  if(innerWidth === lastWinW) return;
-  lastWinW = innerWidth;
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    bgResize();
-    scenes.forEach(sizeScene);
-  }, 300);
-});
+let lastSceneWidth=innerWidth;
+addEventListener('resize',()=>{
+  bgResize();
+  if(innerWidth===lastSceneWidth) return;
+  lastSceneWidth=innerWidth;
+  scenes.forEach(sizeScene);
+},{passive:true});
 
 function setupScene(s){
   const {W,H}=s;const d=s.data;
@@ -510,6 +514,7 @@ function setupScene(s){
     const gw=W/cols,gh=H/rows,cells=[];
     for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)
       cells.push({x:c*gw+gw/2,y:r*gh+gh/2,gw,gh,ph:rand(0,6.28),sp:rand(.02,.06),bit:Math.random()<.5?'0':'1',flip:rand(50,160)});
+    // 호박 셀: 중앙
     let best=null,bd=1e9;
     for(const c of cells){const dd=Math.hypot(c.x-W/2,c.y-H/2);if(dd<bd){bd=dd;best=c;}}
     if(best)best.amber=true;
@@ -593,13 +598,14 @@ function setupScene(s){
 
 function glow(ctx,x,y,r,col,a){ctx.globalAlpha=a;ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();}
 
+// 인간 실루엣 내부의 한 점 (정규 좌표)
 function humanPoint(){
   for(let k=0;k<40;k++){
     const nx=rand(-0.45,0.45), ny=rand(-0.92,0.6);
-    if(Math.hypot(nx,(ny+0.6)/0.85)<0.18) return {nx,ny};
-    if(Math.abs(nx)<0.055 && ny>=-0.44 && ny<-0.3) return {nx,ny};
+    if(Math.hypot(nx,(ny+0.6)/0.85)<0.18) return {nx,ny};           // 머리
+    if(Math.abs(nx)<0.055 && ny>=-0.44 && ny<-0.3) return {nx,ny};   // 목
     const tw=0.24-ny*0.05;
-    if(Math.abs(nx)<tw && ny>=-0.34 && ny<0.5) return {nx,ny};
+    if(Math.abs(nx)<tw && ny>=-0.34 && ny<0.5) return {nx,ny};       // 몸통
   }
   return {nx:0,ny:0};
 }
@@ -607,15 +613,16 @@ function humanPoint(){
 let t=0;
 function frame(){
   t++;
+  // 배경
   bx.clearRect(0,0,BW,BH);
   bx.globalCompositeOperation='lighter';
   for(const st of stars){
-    const tw=reduce ? 0.6 : 0.5+0.5*Math.sin(t*st.sp+st.ph);
+    const tw=reduce?.6:0.5+0.5*Math.sin(t*st.sp+st.ph);
     glow(bx,st.x,st.y,st.r,'#3ad0c8',0.10+tw*0.22);
   }
   bx.globalCompositeOperation='source-over';bx.globalAlpha=1;
 
-  for(const s of scenes){ drawScene(s); }
+  for(const s of scenes){ if(s.active) drawScene(s); }
   requestAnimationFrame(frame);
 }
 
@@ -624,7 +631,7 @@ function drawScene(s){
   ctx.clearRect(0,0,W,H);
 
   if(s.kind==='hero'){
-    const pulse=reduce ? 0.5 : 0.5+0.5*Math.sin(t*0.03);
+    const pulse=reduce?.5:0.5+0.5*Math.sin(t*0.03);
     const r=d.r*(1+pulse*0.03);
     ctx.globalCompositeOperation='lighter';
     const g=ctx.createRadialGradient(d.cx,d.cy,0,d.cx,d.cy,r*2.6);
@@ -643,10 +650,11 @@ function drawScene(s){
   if(s.kind==='scatter'){
     ctx.globalCompositeOperation='lighter';
     for(const p of d.pts){
-      const tw=reduce ? 0.5 : 0.5+0.5*Math.sin(t*p.sp+p.ph);
+      const tw=reduce?.5:0.5+0.5*Math.sin(t*p.sp+p.ph);
       glow(ctx,p.x,p.y,p.r,'#7e98ff',0.2+tw*0.4);
     }
-    const ep=reduce ? 0.5 : 0.5+0.5*Math.sin(t*0.04);
+    // 먼 지구
+    const ep=reduce?.5:0.5+0.5*Math.sin(t*0.04);
     const g=ctx.createRadialGradient(d.earth.x,d.earth.y,0,d.earth.x,d.earth.y,26);
     g.addColorStop(0,'rgba(58,208,200,.6)');g.addColorStop(1,'rgba(58,208,200,0)');
     ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.earth.x,d.earth.y,26,0,7);ctx.fill();
@@ -656,7 +664,7 @@ function drawScene(s){
 
   if(s.kind==='hex'){
     const {R,cx,cy,cells}=d;
-    const spin=reduce ? 0 : t*0.14;
+    const spin=reduce?0:t*0.14;
     const bgg=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.2,cx,cy,R*1.15);
     bgg.addColorStop(0,'rgba(20,40,46,.5)');bgg.addColorStop(1,'rgba(5,6,10,0)');
     ctx.fillStyle=bgg;ctx.beginPath();ctx.arc(cx,cy,R*1.1,0,7);ctx.fill();
@@ -685,19 +693,24 @@ function drawScene(s){
   if(s.kind==='loop'){
     const {cx,cy,R}=d;
     ctx.lineWidth=2;
+    // 궤도
     ctx.globalAlpha=0.25;ctx.strokeStyle='#1d6e6b';
     ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();
-    const head=reduce ? Math.PI : (t*0.02)%(Math.PI*2);
+    // 진행 호
+    const head=reduce?Math.PI:(t*0.02)%(Math.PI*2);
     ctx.globalAlpha=0.9;
     const grd=ctx.createLinearGradient(cx-R,cy,cx+R,cy);
     grd.addColorStop(0,'#3ad0c8');grd.addColorStop(1,'#7e98ff');
     ctx.strokeStyle=grd;ctx.lineCap='round';
     ctx.beginPath();ctx.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+head);ctx.stroke();
+    // 헤드 점 + 되감김 표식
     const hx=cx+Math.cos(-Math.PI/2+head)*R, hy=cy+Math.sin(-Math.PI/2+head)*R;
     ctx.globalCompositeOperation='lighter';
     glow(ctx,hx,hy,5,'#bff5f0',0.95);
+    // 시작점(되감기 지점)
     glow(ctx,cx,cy-R,3,'#7e98ff',0.7);
     ctx.globalCompositeOperation='source-over';
+    // 중앙 ∞
     ctx.globalAlpha=0.7;ctx.fillStyle='#6d7d84';
     ctx.font='600 22px '+'Space Grotesk,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText('∞',cx,cy);
@@ -718,7 +731,7 @@ function drawScene(s){
     const m=d.amber;
     if(m){
       const burst=Math.sin(t*0.16),hot=burst>0.4;
-      const off=hot?(reduce ? 2 : rand(2,5)):1.5;
+      const off=hot?(reduce?2:rand(2,5)):1.5;
       ctx.globalCompositeOperation='lighter';
       const g=ctx.createRadialGradient(m.x,m.y,0,m.x,m.y,m.gw*2.2);
       g.addColorStop(0,hot?'rgba(255,94,122,.55)':'rgba(255,180,84,.5)');g.addColorStop(1,'rgba(255,180,84,0)');
@@ -756,7 +769,7 @@ function drawScene(s){
     g.addColorStop(0,'rgba(255,94,122,.5)');g.addColorStop(1,'rgba(255,94,122,0)');
     ctx.globalAlpha=1;ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,42,0,7);ctx.fill();
     for(const lk of d.leak){
-      lk.r+=reduce ? 0 : lk.sp; if(lk.r>34)lk.r=0;
+      lk.r+=reduce?0:lk.sp; if(lk.r>34)lk.r=0;
       const x=cx+Math.cos(lk.a)*lk.r, y=cy+Math.sin(lk.a)*lk.r;
       glow(ctx,x,y,1.2,'#cfecef',0.5*(1-lk.r/34));
     }
@@ -766,14 +779,14 @@ function drawScene(s){
   if(s.kind==='observe'){
     const {cloudC,baby}=d;
     const span=Math.hypot(cloudC.x-baby.x,cloudC.y-baby.y);
-    const wave=reduce ? 0.75 : (t*0.012)%1;
+    const wave=reduce?0.75:(t*0.012)%1;
     const wr=wave*span*1.1;
     const reached=wr>span*0.7;
     ctx.globalAlpha=0.5*(1-wave);ctx.strokeStyle='rgba(126,152,255,.7)';ctx.lineWidth=1.4;
     ctx.beginPath();ctx.arc(baby.x,baby.y,wr,0,7);ctx.stroke();
     ctx.globalCompositeOperation='lighter';
     for(const p of d.cloud){
-      const dr=reduce ? 0 : Math.sin(t*p.sp+p.ph)*6;
+      const dr=reduce?0:Math.sin(t*p.sp+p.ph)*6;
       const x=cloudC.x+Math.cos(p.a)*p.rr*cloudC.R+dr;
       const y=cloudC.y+Math.sin(p.a)*p.rr*cloudC.R*0.82+Math.cos(t*p.sp+p.ph)*6;
       const clarity=reached?0.5:0.18;
@@ -788,7 +801,7 @@ function drawScene(s){
   }
 
   if(s.kind==='form'){
-    const prog=reduce ? 1 : (0.5-0.5*Math.cos(t*0.012));
+    const prog=reduce?1:(0.5-0.5*Math.cos(t*0.012));
     ctx.globalCompositeOperation='lighter';
     for(const p of d.parts){
       const sx=d.cx+Math.cos(p.a)*p.rr*d.s*0.6;
@@ -820,7 +833,7 @@ function drawScene(s){
     ctx.globalCompositeOperation='lighter';
     const gg=ctx.createRadialGradient(cx,cy,0,cx,cy,r*2.3);
     gg.addColorStop(0,'rgba(255,180,84,.5)');gg.addColorStop(.5,'rgba(255,180,84,.12)');gg.addColorStop(1,'rgba(255,180,84,0)');
-    ctx.globalAlpha=1;ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r*2.3,0,7);ctx.fill();
+    ctx.globalAlpha=1;ctx.fillStyle=gg;ctx.beginPath();ctx.arc(cx,cy,r*2.3,0,7);ctx.fill();
     glow(ctx,cx,cy,r*(0.5+pulse*0.06),'#ffd9a0',0.85);
     glow(ctx,cx,cy,r*0.3,'#fff3e0',0.7);
     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
@@ -858,7 +871,7 @@ function drawScene(s){
       glow(ctx,x,y,1.4,'#8fa0ad',0.22+0.2*Math.sin(t*0.05+v.ph));
     }
     for(const st of d.stones){
-      st.r-=reduce ? 0 : st.sp; if(st.r<16)st.r=Math.min(W,H)*0.45;
+      st.r-=reduce?0:st.sp; if(st.r<16)st.r=Math.min(W,H)*0.45;
       const x=amber.x+Math.cos(st.a)*st.r,y=amber.y+Math.sin(st.a)*st.r;
       glow(ctx,x,y,1.3,'#b9c4cc',0.45);
     }
@@ -887,7 +900,7 @@ function drawScene(s){
 
   if(s.kind==='approach'){
     const {amber}=d;
-    const prog=reduce ? 1 : (0.5-0.5*Math.cos(t*0.014));
+    const prog=reduce?1:(0.5-0.5*Math.cos(t*0.014));
     const kx=d.kidStart+(d.kidEnd-d.kidStart)*prog;
     ctx.globalCompositeOperation='lighter';
     const p=0.5+0.5*Math.sin(t*0.06);
@@ -925,10 +938,10 @@ function drawScene(s){
     const {amber,kid}=d;
     ctx.globalCompositeOperation='lighter';
     for(const sp of d.spirits){
-      sp.off+=reduce ? 0 : sp.sp; if(sp.off>46)sp.off=0;
+      sp.off+=reduce?0:sp.sp; if(sp.off>46)sp.off=0;
       glow(ctx,sp.x,kid.y-sp.off,1,'#bff5f0',0.4*(1-sp.off/46));
     }
-    const life=reduce ? 0.3 : (0.5+0.5*Math.cos(t*0.01));
+    const life=reduce?0.3:(0.5+0.5*Math.cos(t*0.01));
     glow(ctx,kid.x,kid.y,2.4*Math.max(0.3,life),'#bff5f0',0.2+life*0.6);
     const p=0.5+0.5*Math.sin(t*0.06);
     const g=ctx.createRadialGradient(amber.x,amber.y,0,amber.x,amber.y,34);
@@ -959,29 +972,29 @@ function drawScene(s){
   }
 }
 
-window.onload = () => {
-  frame();
-};
+frame();
 </script>
 
-<audio id="myAudio"></audio>
 
+<!-- 화면을 한 번 누르면 재생되는 배경음악 -->
+<audio id="myAudio" preload="none"></audio>
 <script>
-  const playlist = ["music1.mp3", "music2.mp3"]; 
+  const playlist = ['music1.mp3', 'music2.mp3'];
   let currentTrack = 0;
-  const audio = document.getElementById("myAudio");
+  const audio = document.getElementById('myAudio');
+
+  function playCurrentTrack(){
+    audio.src = playlist[currentTrack];
+    audio.play().catch(() => {});
+  }
 
   document.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.src = playlist[currentTrack];
-      audio.play();
-    }
-  }, { once: true }); 
+    if(audio.paused) playCurrentTrack();
+  }, { once:true });
 
-  audio.addEventListener("ended", () => {
+  audio.addEventListener('ended', () => {
     currentTrack = (currentTrack + 1) % playlist.length;
-    audio.src = playlist[currentTrack];
-    audio.play();
+    playCurrentTrack();
   });
 </script>
 
