@@ -84,7 +84,7 @@
   p.lead b{color:var(--ink);font-weight:600}
   p.lead .em{color:var(--cyan);font-weight:500}
 
-  /* 무한 팽창을 막기 위해 300px 고정으로 수정했다 */
+  /* 무한 팽창을 막기 위해 높이를 300px로 강제 고정 */
   .figure{
     margin:34px 0 6px;border:1px solid var(--line);border-radius:4px;
     background:rgba(10,14,24,.5);overflow:hidden;position:relative;
@@ -208,6 +208,7 @@
     <p class="lead rv d2">죽은 자를 무덤에서 일으키는 게 아니다. 그가 살았던 일생을 빠짐없이 적은 <b>전기(傳記)를 다시 쓰는 일</b>에 가깝다.</p>
     <p class="lead rv d2">폐허가 된 지구에서 흙, 암석, 화석, 남은 유기물을 긁어 데이터를 뽑는다. 그 위에 지구 역사 전체를 재현하는 <span class="em">초연산 시뮬레이션</span>을 건다. 실물이 아니라, 기록을 복원하는 것이다.</p>
   </section>
+
   <section>
     <div class="step rv"><span class="no">03</span><span class="of">/ 07</span><span class="tag">장치</span></div>
     <h2 class="rv d1">기계수 <span class="cy">666그루</span>의 막</h2>
@@ -395,8 +396,10 @@
 </main>
 
 <footer>ORIGIN SEED PROJECT · 세계관 개요</footer>
+
 <script>
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 무조건 절전 모드를 끄게 만들었다
+const reduce = false;
 
 /* DOM 크기를 직접 건드리지 않고 스케일(Scale)만 조절하여 안전하게 동작 */
 const prog = document.getElementById('prog');
@@ -460,13 +463,17 @@ function sizeScene(s){
   setupScene(s);
 }
 
-/* 화면 '너비'가 진짜 변했을 때만 크기 조정을 허락한다 */
+/* 화면 '너비'가 진짜 변했을 때만 크기 조정을 허락하고 과부하 방지 타이머 적용 */
 let lastWinW = innerWidth;
+let resizeTimer;
 addEventListener('resize', () => {
   if(innerWidth === lastWinW) return;
   lastWinW = innerWidth;
-  bgResize();
-  scenes.forEach(sizeScene);
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    bgResize();
+    scenes.forEach(sizeScene);
+  }, 300);
 });
 
 function setupScene(s){
@@ -957,15 +964,13 @@ window.onload = () => {
 };
 </script>
 
-  <audio id="myAudio"></audio>
+<audio id="myAudio"></audio>
 
 <script>
-  // 1. 깃허브에 올린 파일명과 일치해야 함
   const playlist = ["music1.mp3", "music2.mp3"]; 
   let currentTrack = 0;
   const audio = document.getElementById("myAudio");
 
-  // 2. 방문자가 화면 아무 데나 클릭하면 시작
   document.addEventListener('click', () => {
     if (audio.paused) {
       audio.src = playlist[currentTrack];
@@ -973,7 +978,6 @@ window.onload = () => {
     }
   }, { once: true }); 
 
-  // 3. 한 곡 끝나면 자동으로 다음 곡 재생
   audio.addEventListener("ended", () => {
     currentTrack = (currentTrack + 1) % playlist.length;
     audio.src = playlist[currentTrack];
