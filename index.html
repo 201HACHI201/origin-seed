@@ -424,61 +424,137 @@ document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
 /* ── 배경 입자 ── */
 const bg = document.getElementById('bg');
 const bx = bg.getContext('2d');
-let BW,BH,DPR=Math.min(devicePixelRatio||1,2),stars=[];
-function bgResize(){
-  BW=innerWidth;BH=innerHeight;
-  bg.width=BW*DPR;bg.height=BH*DPR;
-  bg.style.width=BW+'px';bg.style.height=BH+'px';
-  bx.setTransform(DPR,0,0,DPR,0,0);
-  stars=[];const n=Math.min(120,Math.floor(BW*BH/12000));
-  for(let i=0;i<n;i++)stars.push({x:Math.random()*BW,y:Math.random()*BH,
-    r:Math.random()*1.1+.2,ph:Math.random()*6.28,sp:Math.random()*.02+.004});
+let BW = 0, BH = 0, DPR = 1, stars = [];
+
+function currentDPR(){
+  return Math.min(window.devicePixelRatio || 1, 2);
 }
-bgResize();addEventListener('resize',bgResize);
+
+function bgResize(){
+  DPR = currentDPR();
+  BW = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
+  BH = Math.max(1, window.innerHeight || document.documentElement.clientHeight || 1);
+  bg.width = Math.round(BW * DPR);
+  bg.height = Math.round(BH * DPR);
+  bg.style.width = BW + 'px';
+  bg.style.height = BH + 'px';
+  bx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+  stars = [];
+  const n = Math.min(120, Math.floor(BW * BH / 12000));
+  for(let i=0; i<n; i++){
+    stars.push({
+      x: Math.random() * BW,
+      y: Math.random() * BH,
+      r: Math.random() * 1.1 + .2,
+      ph: Math.random() * 6.28,
+      sp: Math.random() * .02 + .004
+    });
+  }
+}
+bgResize();
 
 /* ── 씬 캔버스들 ── */
-const scenes=[];
-function rand(a,b){return a+Math.random()*(b-a);}
+const scenes = [];
+function rand(a,b){ return a + Math.random() * (b-a); }
 
-document.querySelectorAll('canvas[data-scene]').forEach(cv=>{
-  const ctx=cv.getContext('2d');
-  const s={
-    cv,ctx,kind:cv.dataset.scene,active:false,W:0,H:0,
-    baseHeight:parseInt(cv.getAttribute('height'),10),
-    data:{}
+function getSceneWidth(s){
+  const box = s.cv.parentElement;
+  return Math.max(1, Math.round(box.clientWidth || box.getBoundingClientRect().width || 1));
+}
+
+function sizeScene(s, force=false){
+  const w = getSceneWidth(s);
+  const h = s.baseHeight;
+  const dpr = currentDPR();
+
+  /* canvas.width/height를 바꾸면 DOM 속성값도 바뀐다.
+     그래서 원본 height 속성은 절대 다시 읽지 않고 baseHeight만 쓴다. */
+  if(!force && s.W === w && s.H === h && s.dpr === dpr) return false;
+
+  s.W = w;
+  s.H = h;
+  s.dpr = dpr;
+  s.cv.width = Math.round(w * dpr);
+  s.cv.height = Math.round(h * dpr);
+  s.cv.style.width = w + 'px';
+  s.cv.style.height = h + 'px';
+  s.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  s.data = {};
+  s.failed = false;
+  setupScene(s);
+  return true;
+}
+
+function refreshSceneActivity(){
+  const vh = Math.max(1, window.innerHeight || document.documentElement.clientHeight || 1);
+  for(const s of scenes){
+    const r = s.cv.getBoundingClientRect();
+    /* 화면 앞뒤 한 화면 정도를 미리 활성화한다.
+       빠르게 내릴 때도 빈 캔버스가 먼저 보이지 않게 하는 여유 구간이다. */
+    s.active = r.bottom > -vh && r.top < vh * 2;
+  }
+}
+
+let sceneObserver = null;
+if('IntersectionObserver' in window){
+  sceneObserver = new IntersectionObserver((entries) => {
+    for(const entry of entries){
+      const scene = entry.target.__originSeedScene;
+      if(scene) scene.active = entry.isIntersecting;
+    }
+  }, {root:null, rootMargin:'100% 0px 100% 0px', threshold:0.01});
+}
+
+document.querySelectorAll('canvas[data-scene]').forEach(cv => {
+  const ctx = cv.getContext('2d');
+  const s = {
+    cv,
+    ctx,
+    kind:cv.dataset.scene,
+    active:false,
+    W:0,
+    H:0,
+    dpr:0,
+    /* 원본 높이는 캔버스 생성 순간에 한 번만 기억한다. */
+    baseHeight:parseInt(cv.getAttribute('height'), 10) || 200,
+    data:{},
+    failed:false
   };
-  const sObs=new IntersectionObserver((es)=>{
-    es.forEach(e=>s.active=e.isIntersecting);
-  },{threshold:.05});
-  sObs.observe(cv);
+  cv.__originSeedScene = s;
   scenes.push(s);
-  sizeScene(s);
+  sizeScene(s, true);
+  if(sceneObserver) sceneObserver.observe(cv);
 });
 
-function sizeScene(s){
-  let w;
-  if(s.kind==='hero'){
-    w=Math.min(340, innerWidth-52);
-  }else{
-    const pad=(innerWidth<=420)?22:26;
-    w=Math.min(innerWidth, 780+pad*2)-pad*2-2;
-  }
-  w=Math.max(120, Math.round(w));
-  const h=s.baseHeight;
-  s.W=w;s.H=h;
-  s.cv.width=w*DPR;s.cv.height=h*DPR;
-  s.cv.style.width=w+'px';
-  s.cv.style.height=h+'px';
-  s.ctx.setTransform(DPR,0,0,DPR,0,0);
-  setupScene(s);
+/* figure 폭이 실제로 바뀔 때만 해당 캔버스를 다시 만든다.
+   주소창/작업표시줄 때문에 높이만 달라져도 그림 박스가 누적 확대되지 않는다. */
+if('ResizeObserver' in window){
+  const figureResizeObserver = new ResizeObserver(entries => {
+    for(const entry of entries){
+      const cv = entry.target.querySelector('canvas[data-scene]');
+      const scene = cv && cv.__originSeedScene;
+      if(scene) sizeScene(scene);
+    }
+  });
+  document.querySelectorAll('.figure').forEach(figure => figureResizeObserver.observe(figure));
 }
-let lastSceneWidth=innerWidth;
-addEventListener('resize',()=>{
-  bgResize();
-  if(innerWidth===lastSceneWidth) return;
-  lastSceneWidth=innerWidth;
-  scenes.forEach(sizeScene);
-},{passive:true});
+
+let resizeQueued = false;
+function handleResize(){
+  if(resizeQueued) return;
+  resizeQueued = true;
+  requestAnimationFrame(() => {
+    resizeQueued = false;
+    bgResize();
+    /* DPR 변경이나 ResizeObserver가 없는 브라우저를 위한 보조 검사 */
+    scenes.forEach(scene => sizeScene(scene));
+    refreshSceneActivity();
+    renderNow();
+  });
+}
+window.addEventListener('resize', handleResize, {passive:true});
+window.addEventListener('orientationchange', handleResize, {passive:true});
 
 function setupScene(s){
   const {W,H}=s;const d=s.data;
@@ -610,21 +686,8 @@ function humanPoint(){
   return {nx:0,ny:0};
 }
 
-let t=0;
-function frame(){
-  t++;
-  // 배경
-  bx.clearRect(0,0,BW,BH);
-  bx.globalCompositeOperation='lighter';
-  for(const st of stars){
-    const tw=reduce?.6:0.5+0.5*Math.sin(t*st.sp+st.ph);
-    glow(bx,st.x,st.y,st.r,'#3ad0c8',0.10+tw*0.22);
-  }
-  bx.globalCompositeOperation='source-over';bx.globalAlpha=1;
 
-  for(const s of scenes){ if(s.active) drawScene(s); }
-  requestAnimationFrame(frame);
-}
+let t = 0;
 
 function drawScene(s){
   const {ctx,W,H}=s,d=s.data;
@@ -972,31 +1035,152 @@ function drawScene(s){
   }
 }
 
-frame();
-</script>
 
+/* ── 끊기지 않는 렌더 루프 ── */
+let rafId = 0;
+let isRunning = false;
+let lastFrameAt = 0;
 
-<!-- 화면을 한 번 누르면 재생되는 배경음악 -->
-<audio id="myAudio" preload="none"></audio>
-<script>
-  const playlist = ['music1.mp3', 'music2.mp3'];
-  let currentTrack = 0;
-  const audio = document.getElementById('myAudio');
+function drawBackground(){
+  bx.clearRect(0, 0, BW, BH);
+  bx.globalCompositeOperation = 'lighter';
+  for(const st of stars){
+    const tw = reduce ? .6 : 0.5 + 0.5 * Math.sin(t * st.sp + st.ph);
+    glow(bx, st.x, st.y, st.r, '#3ad0c8', 0.10 + tw * 0.22);
+  }
+  bx.globalCompositeOperation = 'source-over';
+  bx.globalAlpha = 1;
+}
 
-  function playCurrentTrack(){
-    audio.src = playlist[currentTrack];
-    audio.play().catch(() => {});
+/* 한 도해에 문제가 생겨도 전체 requestAnimationFrame 루프를 죽이지 않는다. */
+function safeDrawScene(s){
+  if(s.failed) return;
+  try{
+    drawScene(s);
+  }catch(error){
+    s.failed = true;
+    console.error('[Origin SEED] scene error:', s.kind, error);
+  }
+}
+
+function renderNow(){
+  try{
+    drawBackground();
+    for(const s of scenes){
+      if(s.active) safeDrawScene(s);
+    }
+  }catch(error){
+    console.error('[Origin SEED] render error:', error);
+  }
+}
+
+function tick(now){
+  if(!isRunning || document.hidden){
+    isRunning = false;
+    rafId = 0;
+    return;
   }
 
-  document.addEventListener('click', () => {
-    if(audio.paused) playCurrentTrack();
-  }, { once:true });
+  /* 다음 프레임을 먼저 예약해 예상 못 한 한 프레임 오류가 전체를 멈추지 않게 한다. */
+  rafId = requestAnimationFrame(tick);
+
+  if(!lastFrameAt) lastFrameAt = now;
+  const delta = Math.min(50, Math.max(0, now - lastFrameAt));
+  lastFrameAt = now;
+  if(!reduce) t += delta / (1000 / 60);
+  renderNow();
+}
+
+function startAnimation(){
+  if(reduce || document.hidden || isRunning) return;
+  isRunning = true;
+  lastFrameAt = 0;
+  rafId = requestAnimationFrame(tick);
+}
+
+function stopAnimation(){
+  isRunning = false;
+  lastFrameAt = 0;
+  if(rafId){
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+}
+
+/* 다른 앱/탭으로 갔다가 돌아올 때 Canvas를 즉시 다시 그리고 루프도 새로 시작한다. */
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden){
+    stopAnimation();
+    return;
+  }
+  handleResize();
+  refreshSceneActivity();
+  renderNow();
+  startAnimation();
+});
+
+window.addEventListener('pageshow', () => {
+  handleResize();
+  refreshSceneActivity();
+  renderNow();
+  startAnimation();
+});
+
+let scrollQueued = false;
+window.addEventListener('scroll', () => {
+  if(scrollQueued) return;
+  scrollQueued = true;
+  requestAnimationFrame(() => {
+    scrollQueued = false;
+    refreshSceneActivity();
+  });
+}, {passive:true});
+
+/* 최초에는 모든 씬을 한 번 그려 둔다.
+   빨리 내릴 때 IntersectionObserver가 도착하기 전 빈 박스가 드러나는 일을 막는다. */
+refreshSceneActivity();
+for(const scene of scenes){
+  const wasActive = scene.active;
+  scene.active = true;
+  safeDrawScene(scene);
+  scene.active = wasActive;
+}
+renderNow();
+startAnimation();
+
+/* 개발자 도구에서 현재 상태를 확인할 수 있는 읽기 전용 검사창 */
+window.__originSeedStatus = () => ({
+  running:isRunning,
+  time:t,
+  scenes:scenes.map(s => ({kind:s.kind, active:s.active, failed:s.failed, width:s.W, height:s.H, baseHeight:s.baseHeight}))
+});
+
+</script>
+
+<audio id="myAudio" preload="none"></audio>
+<script>
+(() => {
+  const playlist = ['music1.mp3', 'music2.mp3'];
+  const audio = document.getElementById('myAudio');
+  let currentTrack = 0;
+  if(!audio) return;
+
+  function playCurrent(){
+    audio.src = playlist[currentTrack];
+    audio.play().catch(() => {
+      /* 음악 재생 실패는 캔버스 애니메이션과 분리한다. */
+    });
+  }
+
+  document.addEventListener('pointerdown', () => {
+    if(audio.paused) playCurrent();
+  }, {once:true, passive:true});
 
   audio.addEventListener('ended', () => {
     currentTrack = (currentTrack + 1) % playlist.length;
-    playCurrentTrack();
+    playCurrent();
   });
+})();
 </script>
-
 </body>
 </html>
