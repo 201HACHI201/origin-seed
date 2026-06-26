@@ -1166,6 +1166,8 @@ window.__originSeedStatus = () => ({
   if(!audio) return;
 
   function playCurrent(){
+    /* 첫 곡은 한 번만, 두 번째 곡은 반복 재생 */
+    audio.loop = currentTrack === 1;
     audio.src = playlist[currentTrack];
     audio.play().catch(() => {
       /* 음악 재생 실패는 캔버스 애니메이션과 분리한다. */
@@ -1177,8 +1179,11 @@ window.__originSeedStatus = () => ({
   }, {once:true, passive:true});
 
   audio.addEventListener('ended', () => {
-    currentTrack = (currentTrack + 1) % playlist.length;
-    playCurrent();
+    /* music1이 끝난 뒤 music2로 넘어가며, music2는 audio.loop로 계속 반복된다. */
+    if(currentTrack === 0){
+      currentTrack = 1;
+      playCurrent();
+    }
   });
 })();
 </script>
